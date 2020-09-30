@@ -5,6 +5,7 @@ import com.example.demo.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,8 +16,10 @@ public class CustomerResource {
     private CustomerService customerService;
 
     @PostMapping
-    public Customer addCustomer(@RequestBody Customer customer){
-
+    public Customer addCustomer(@Valid  @RequestBody Customer customer){
+        customer.setCustomerFirstName(customer.getCustomerFirstName().toLowerCase());
+        customer.setCustomerLastName(customer.getCustomerLastName().toLowerCase());
+        customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
         return customerService.addCustomer(customer);
     }
 
@@ -31,7 +34,7 @@ public class CustomerResource {
     }
 
     @PutMapping(value = "/{customerId}")
-    public Customer updateCustomer(@PathVariable("customerId") int customerId, @RequestBody Customer customer){
+    public Customer updateCustomer(@PathVariable("customerId") int customerId,@Valid @RequestBody Customer customer){
         return customerService.updateCustomer(customerId, customer);
     }
 
