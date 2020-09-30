@@ -43,4 +43,8 @@ public class CustomerResource {
         customerService.deleteCustomer(customerId);
     }
 
+    @PatchMapping(value ="/{customerId}")
+    public Customer patchCustomer(@PathVariable("customerId") int customerId, @RequestBody Customer customer){
+        return customerService.patchCustomer(customerId, customer);
+    }
 }
