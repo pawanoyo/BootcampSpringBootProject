@@ -4,6 +4,7 @@ import com.example.demo.dao.CustomerDAO;
 import com.example.demo.exception.CustomerNotFoundException;
 import com.example.demo.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component
+
 public class CustomerService {
 
     @Autowired
@@ -38,7 +40,7 @@ public class CustomerService {
 
     public Customer updateCustomer(int customerId, Customer customer){
 
-        customer.setCustomerId(customerId);
+        //customer.setCustomerId(customerId);
         return customerDAO.save(customer);
     }
 
