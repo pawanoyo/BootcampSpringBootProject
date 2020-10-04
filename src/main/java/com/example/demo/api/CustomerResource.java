@@ -33,6 +33,17 @@ public class CustomerResource {
         return customerService.getCustomer(customerId);
     }
 
+    @GetMapping(value = "/search/{by}/{value}")
+    public List<Customer> getCustomersByEmail(@PathVariable("by") String by , @PathVariable("value") String value){
+//        System.out.println(by + " " + value);
+        return customerService.getAllByValue(by , value);
+    }
+
+    @GetMapping(value="/pagination/{pageNumber}/{pageSize}")
+    public  List<Customer> getCustomersForPage(@PathVariable("pageNumber") int pageNumber , @PathVariable("pageSize") int pageSize){
+        return customerService.getAllCustomerPaginated(pageNumber, pageSize);
+    }
+
     @PutMapping(value = "/{customerId}")
     public Customer updateCustomer(@PathVariable("customerId") int customerId,@Valid @RequestBody Customer customer){
         return customerService.updateCustomer(customerId, customer);
