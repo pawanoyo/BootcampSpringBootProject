@@ -20,7 +20,7 @@ public class CustomerService {
 
     @Autowired
     private CustomerDAO customerDAO;
-    
+
     public Customer addCustomer(Customer customer){
 
         customer.setCreatedDate(new DateTime().toString("MM/dd/yyyy HH:mm"));
