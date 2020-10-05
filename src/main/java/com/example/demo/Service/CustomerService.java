@@ -38,12 +38,8 @@ public class CustomerService {
 
         Optional<Customer> optionalCustomer = customerDAO.findById(customerId);
         if(!optionalCustomer.isPresent()){
-            CustomerNotFoundException e =new CustomerNotFoundException("Customer Record is not available");
-            String stacktrace = ExceptionUtils.getStackTrace(e);
-            logger.info("Stack Trace of 404 exception(customerId - " + customerId + " not found in database) - " + stacktrace);
-            throw e;
+            throw new CustomerNotFoundException("Customer Record is not available");
         }
-
         return optionalCustomer.get();
     }
 
