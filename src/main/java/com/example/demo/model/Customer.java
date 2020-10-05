@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-//import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
@@ -17,7 +17,7 @@ public class Customer {
     private String customerLastName;
     private String customerEmail;
 
-//    @CreatedDate
+    @CreatedDate
     public String createdDate;
 
     @LastModifiedDate
