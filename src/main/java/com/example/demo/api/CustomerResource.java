@@ -29,14 +29,14 @@ public class CustomerResource {
     @GetMapping
     public List<Customer> getCustomerId(){
 
-        logger.info("Client has requested for all customers");
+        logger.info("Client has requested for customers list");
         return customerService.getCustomers();
     }
 
     @GetMapping(value="/{customerId}")
     public Customer getCustomer(@PathVariable("customerId") int customerId){
 
-        logger.info("Client has requested for a customer with id " + customerId);
+        logger.info("Client has requested a customer of id " + customerId);
         return customerService.getCustomer(customerId);
     }
 
@@ -49,7 +49,7 @@ public class CustomerResource {
 
     @DeleteMapping(value="/{customerId}")
     public void deleteCustomer(@PathVariable("customerId") int customerId){
-        logger.info("Client has deleted a customer ("+ customerId + ")");
+        logger.info("Client has deleted a customer(CustomerId - "+ customerId + ")");
         customerService.deleteCustomer(customerId);
     }
 

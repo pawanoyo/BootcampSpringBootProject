@@ -3,7 +3,10 @@ package com.example.demo.Service;
 import com.example.demo.dao.CustomerDAO;
 import com.example.demo.exception.CustomerNotFoundException;
 import com.example.demo.model.Customer;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerDAO customerDAO;
+
+    Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     public Customer addCustomer(Customer customer){
 
@@ -33,7 +38,10 @@ public class CustomerService {
 
         Optional<Customer> optionalCustomer = customerDAO.findById(customerId);
         if(!optionalCustomer.isPresent()){
-            throw new CustomerNotFoundException("Customer Record is not available");
+            CustomerNotFoundException e =new CustomerNotFoundException("Customer Record is not available");
+            String stacktrace = ExceptionUtils.getStackTrace(e);
+            logger.info("Stack Trace of 404 exception(customerId - " + customerId + " not found in database) - " + stacktrace);
+            throw e;
         }
 
         return optionalCustomer.get();
