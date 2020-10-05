@@ -20,9 +20,7 @@ public class CustomerService {
 
     @Autowired
     private CustomerDAO customerDAO;
-
-    Logger logger = LoggerFactory.getLogger(CustomerService.class);
-
+    
     public Customer addCustomer(Customer customer){
 
         customer.setCreatedDate(new DateTime().toString("MM/dd/yyyy HH:mm"));
