@@ -3,12 +3,16 @@ package com.example.demo.api;
 import com.example.demo.Service.CustomerService;
 import com.example.demo.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping(value = "/customers")
 public class CustomerResource {
 

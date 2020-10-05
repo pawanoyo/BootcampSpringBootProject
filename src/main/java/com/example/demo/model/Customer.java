@@ -12,13 +12,18 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.validation.executable.ValidateOnExecution;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Document(collection = "customers")
+@ValidateOnExecution
 //@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"firstName" , "lastName"}) , @UniqueConstraint(columnNames = {"eMail"})})
 //@CompoundIndexes({
 //        @CompoundIndex(unique = true , name = "first_last", def = "{ 'customerFirstName' : 1 , 'customerLastName' : 1}"),
@@ -48,9 +53,24 @@ public class Customer {
     @Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-z0-9]+@([a-zA-Z])+\\.([a-zA-Z0-9])*([a-zA-Z]){2,}")
 //    @Column(name = "eMail" , unique = true)
     @Field(name = "email")
-    @Indexed(unique = true)
+//    @Indexed(unique = true)
     private String customerEmail;
 
+
+    ArrayList<String> customerLog = new ArrayList<String>();
+
+    public ArrayList<String> getCustomerLog() {
+        return customerLog;
+    }
+
+    public void setCustomerLog(ArrayList<String> customerLog) {
+        this.customerLog = customerLog;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(customerFirstName + " " + customerLastName + " " + customerEmail);
+    }
 
     public int getCustomerId() {
         return customerId;
@@ -64,7 +84,7 @@ public class Customer {
         return customerFirstName;
     }
 
-    public void setCustomerFirstName(String customerFirstName) {
+    public void setCustomerFirstName(@Valid String customerFirstName) {
         this.customerFirstName = customerFirstName;
     }
 
@@ -72,7 +92,7 @@ public class Customer {
         return customerLastName;
     }
 
-    public void setCustomerLastName(String customerLastName) {
+    public void setCustomerLastName(@Valid String customerLastName) {
         this.customerLastName = customerLastName;
     }
 
@@ -80,7 +100,7 @@ public class Customer {
         return customerEmail;
     }
 
-    public void setCustomerEmail(String customerEmail) {
+    public void setCustomerEmail(@Valid String customerEmail) {
         this.customerEmail = customerEmail;
     }
 }
