@@ -1,20 +1,27 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+import java.util.Date;
+
+@Document
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
     private String customerFirstName;
     private String customerLastName;
     private String customerEmail;
 
+    @CreatedDate
+    public String createdDate;
+
+    @LastModifiedDate
+    public String lastModifiedDate;
 
     public int getCustomerId() {
         return customerId;
@@ -47,4 +54,21 @@ public class Customer {
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
 }
