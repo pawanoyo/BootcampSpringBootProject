@@ -90,6 +90,12 @@
 			<version>2.3.3.RELEASE</version>
 		</dependency>
 
+		<!-- for exceptions -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
 
 
 		<dependency>
