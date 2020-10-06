@@ -1,5 +1,7 @@
 package com.example.demo.interceptor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,6 +13,7 @@ import java.util.UUID;
 @Component
 public class ServiceInterceptor implements HandlerInterceptor {
 
+    Logger logger = LoggerFactory.getLogger(ServiceInterceptor.class);
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception{
 
@@ -22,8 +25,8 @@ public class ServiceInterceptor implements HandlerInterceptor {
                     remoteAddr = request.getRemoteAddr();
                 }
             }
-            //MDC.put("unique-id", UUID.randomUUID().toString());
-            System.out.println("uuid:" + UUID.randomUUID().toString());
+            MDC.put("unique-id", UUID.randomUUID().toString());
+            logger.info("Client(true-client-ip: " + remoteAddr + ") has a request with UUID: ");
         } catch(Exception e){
             MDC.clear();
         }
