@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.dao.CustomerDAO;
+import com.example.demo.exception.AlreadyExistException;
 import com.example.demo.exception.BadRequest;
 import com.example.demo.exception.CustomerNotFoundException;
 import com.example.demo.model.Customer;
@@ -45,8 +46,15 @@ public class CustomerService {
         customerLog.add("created " + new Date().toString());
         customer.setCustomerLog(customerLog);
 
-        logger.info("Client has successfully added a customer: " + customer.toString());
-        return customerDAO.save(customer);
+        Optional<Customer> optionalCustomer = customerDAO.findById(customer.getCustomerId());
+        if(optionalCustomer.isPresent()){
+            throw new AlreadyExistException("Customer is already exist with this details");
+        }
+        else{
+            logger.info("Client has successfully added a customer: " + customer.toString());
+            return customerDAO.save(customer);
+        }
+
     }
 
     public List<Customer> getCustomers(){

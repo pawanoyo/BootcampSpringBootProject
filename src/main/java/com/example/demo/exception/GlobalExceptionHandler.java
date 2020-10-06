@@ -34,6 +34,14 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date().toString(), HttpStatus.BAD_REQUEST,exception.getMessage(),request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<?> handelGlobalException (AlreadyExistException exception, WebRequest request){
+
+        String stacktrace = ExceptionUtils.getStackTrace(exception);
+        logger.info("Stack Trace of Internal Server Error Exception - " + stacktrace);
+        ErrorDetails errorDetails = new ErrorDetails(new Date().toString(), HttpStatus.ALREADY_REPORTED, exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity(errorDetails, HttpStatus.ALREADY_REPORTED);
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handelGlobalException (Exception exception, WebRequest request){
