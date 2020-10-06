@@ -15,10 +15,13 @@ import java.util.Date;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<?> handelCustomerNotFoundException (CustomerNotFoundException exception, WebRequest request){
 
+        String stacktrace = ExceptionUtils.getStackTrace(exception);
+        logger.info("Stack Trace of Not Found Exception - " + stacktrace);
         ErrorDetails errorDetails = new ErrorDetails(new Date().toString(), HttpStatus.NOT_FOUND,exception.getMessage(),request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }
@@ -26,6 +29,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BadRequest.class)
     public ResponseEntity<?> handelCustomerNotFoundException (BadRequest exception, WebRequest request){
 
+        String stacktrace = ExceptionUtils.getStackTrace(exception);
+        logger.info("Stack Trace of Bad Request Exception - " + stacktrace);
         ErrorDetails errorDetails = new ErrorDetails(new Date().toString(), HttpStatus.BAD_REQUEST,exception.getMessage(),request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
     }
@@ -33,6 +38,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handelGlobalException (Exception exception, WebRequest request){
 
+        String stacktrace = ExceptionUtils.getStackTrace(exception);
+        logger.info("Stack Trace of Internal Server Error Exception - " + stacktrace);
         ErrorDetails errorDetails = new ErrorDetails(new Date().toString(), HttpStatus.INTERNAL_SERVER_ERROR,exception.getMessage(),request.getDescription(false));
         return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
