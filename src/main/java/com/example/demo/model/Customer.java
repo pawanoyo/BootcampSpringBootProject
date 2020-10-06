@@ -69,7 +69,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return String.format(customerFirstName + " " + customerLastName + " " + customerEmail);
+        return String.format("customerId - " + customerId + ", customerFirstName - " + customerFirstName + ", customerLastName - " + customerLastName + ", customerEmail: " + customerEmail);
     }
 
     public int getCustomerId() {

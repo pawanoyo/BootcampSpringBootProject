@@ -37,7 +37,7 @@ public class CustomerResource {
     @GetMapping
     public List<Customer> getCustomerId(){
 
-        logger.info("Client has requested for customers list");
+        logger.info("Client has requested for list of customer exist in database");
         return customerService.getCustomers();
     }
 
@@ -84,9 +84,9 @@ public class CustomerResource {
         Customer previous = getCustomer(customerId);
 
         String str = "Client has a request for updating a customer(Id: " + customerId +") with ";
-        str += (customer.getCustomerFirstName().toLowerCase().equals(previous.getCustomerFirstName())) ? "": ", First Name" ;
-        str += (customer.getCustomerLastName().toLowerCase().equals(previous.getCustomerLastName())) ? "": ", Last Name" ;
-        str += (customer.getCustomerEmail().toLowerCase().equals(previous.getCustomerEmail()))? "": ", Email" ;
+        str += (customer.getCustomerFirstName().toLowerCase().equals(previous.getCustomerFirstName())) ? "": ", First Name - " + customer.getCustomerFirstName() ;
+        str += (customer.getCustomerLastName().toLowerCase().equals(previous.getCustomerLastName())) ? "": ", Last Name - " +customer.getCustomerLastName();
+        str += (customer.getCustomerEmail().toLowerCase().equals(previous.getCustomerEmail()))? "": ", Email - " + customer.getCustomerEmail() ;
         logger.info(str);
         return customerService.patchCustomer(customerId, customer);
     }

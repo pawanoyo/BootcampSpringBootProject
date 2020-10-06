@@ -6,6 +6,8 @@ import com.example.demo.exception.CustomerNotFoundException;
 import com.example.demo.model.Customer;
 import com.mongodb.internal.operation.OrderBy;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,6 +33,8 @@ public class CustomerService {
     private CustomerDAO customerDAO;
     private final MongoTemplate mongoTemplate;
 
+    Logger logger = LoggerFactory.getLogger(CustomerService.class);
+
     public CustomerService(MongoTemplate mongoTemplate){
         this.mongoTemplate = mongoTemplate;
     }
@@ -40,11 +44,14 @@ public class CustomerService {
         ArrayList<String> customerLog = new ArrayList<String>();
         customerLog.add("created " + new Date().toString());
         customer.setCustomerLog(customerLog);
+
+        logger.info("Client has successfully added a customer: " + customer.toString());
         return customerDAO.save(customer);
     }
 
     public List<Customer> getCustomers(){
 
+        logger.info("Client has successfully received list of customer exist in database");
         return customerDAO.findAll();
     }
 
@@ -54,7 +61,7 @@ public class CustomerService {
         if(!optionalCustomer.isPresent()){
             throw new CustomerNotFoundException("Customer Record is not available");
         }
-
+        logger.info("Client has successfully received a customer: " + optionalCustomer.get().toString());
         return optionalCustomer.get();
     }
 
@@ -72,6 +79,7 @@ public class CustomerService {
         customer.setCustomerLog(previous.getCustomerLog());
         customer.getCustomerLog().add(change);
         try {
+            logger.info("Client has successfully update customer: " + customer.toString());
             return customerDAO.save(customer);
         }catch (Exception e){
             System.out.println(e.getStackTrace().toString());
@@ -82,7 +90,7 @@ public class CustomerService {
 
 
     public void deleteCustomer(int customerId){
-
+        logger.info("Client has successfully deleted a customer: " + customerDAO.findById(customerId).get().toString());
         customerDAO.deleteById(customerId);
     }
 
@@ -93,13 +101,13 @@ public class CustomerService {
         customer.setCustomerFirstName(customer.getCustomerFirstName() == null ? previous.getCustomerFirstName() : Validater(customer.getCustomerFirstName().toLowerCase() , "^([a-zA-Z]{3})((\\s?)[a-zA-z])*$"));
         customer.setCustomerLastName(customer.getCustomerLastName() == null ? previous.getCustomerLastName() : Validater(customer.getCustomerLastName().toLowerCase(),"^([a-zA-Z]{3})((\\s?)[a-zA-z])*$"));
         customer.setCustomerEmail(customer.getCustomerEmail() == null ? previous.getCustomerEmail() : Validater(customer.getCustomerEmail().toLowerCase(), "^[a-zA-Z]+\\.[a-zA-z0-9]+@([a-zA-Z])+\\.([a-zA-Z0-9])*([a-zA-Z]){2,}"));
-
         return updateCustomer(customerId , customer);
     }
 
     public List<Customer> getAllByValue(String by , String value){
 //        System.out.println(by + " " + value);
         Query query = new Query().addCriteria(Criteria.where(""+by).is(value));
+        logger.info("Client has successfully received the customers having " + by + " - " + value);
         return mongoTemplate.find(query, Customer.class);
     }
 
@@ -107,6 +115,7 @@ public class CustomerService {
         Query query = new Query();
         query.skip(pageNumber * pageSize);
         query.limit(pageSize);
+        logger.info("Client has successfully received the customers of that pagination");
         return mongoTemplate.find(query, Customer.class);
     }
 
