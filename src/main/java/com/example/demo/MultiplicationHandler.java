@@ -10,5 +10,5 @@ public class MultiplicationHandler implements MultiplicationService.Iface {
         System.out.println("Multiply(" + n1 + "," + n2 + ")");
         return n1 * n2;
     }
-    
+
 }

@@ -90,8 +90,8 @@ public class CustomerService {
             logger.info("Client has successfully update customer: " + customer.toString());
             return customerDAO.save(customer);
         }catch (Exception e){
-            System.out.println(e.getStackTrace().toString());
-            throw new BadRequest("helo elo");
+//            System.out.println(e.getStackTrace().toString());
+            throw new BadRequest("Multiple Entry");
 
         }
     }
