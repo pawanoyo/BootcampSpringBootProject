@@ -37,13 +37,13 @@ public class Customer {
     @Id
     private int customerId;
     @NotBlank(message = "First Name is mandatory")
-    @Size(min = 3, max = 200, message = "First Name should be in between 10 and 200 characters")
+    @Size(min = 3, max = 200, message = "First Name should be in between 3 and 200 characters")
     @Pattern(regexp = "^([a-zA-Z]{3})((\\s?)[a-zA-z])*$")
 //    @Column(name = "firstName")
     private String customerFirstName;
 
     @NotBlank(message = "Last Name is mandatory")
-    @Size(min = 3, max = 200, message = "Last Name should be in between 10 and 200 characters")
+    @Size(min = 3, max = 200, message = "Last Name should be in between 3 and 200 characters")
     @Pattern(regexp = "^([a-zA-Z]{3})((\\s?)[a-zA-z])*$")
 //    @Column(name = "lastName")
     private String customerLastName;
