@@ -50,7 +50,6 @@ public class CustomerResource {
 
     @GetMapping(value = "/search/{by}/{value}")
     public List<Customer> getCustomersByEmail(@PathVariable("by") String by , @PathVariable("value") String value){
-//        System.out.println(by + " " + value);
 
         logger.info("Client has requested of customer that has " + by + " = " + value);
         return customerService.getAllByValue(by , value);
