@@ -24,36 +24,25 @@ import java.util.List;
 
 @Document(collection = "customers")
 @ValidateOnExecution
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"firstName" , "lastName"}) , @UniqueConstraint(columnNames = {"eMail"})})
-//@CompoundIndexes({
-//        @CompoundIndex(unique = true , name = "first_last", def = "{ 'customerFirstName' : 1 , 'customerLastName' : 1}"),
-//
-//})
-//@CompoundIndex(unique = true , name = "email" , def = "{'customerEmail' : 1}")
+
 public class Customer {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private int customerId;
     @NotBlank(message = "First Name is mandatory")
     @Size(min = 3, max = 200, message = "First Name should be in between 3 and 200 characters")
     @Pattern(regexp = "^([a-zA-Z]{3})((\\s?)[a-zA-z])*$")
-//    @Column(name = "firstName")
     private String customerFirstName;
 
     @NotBlank(message = "Last Name is mandatory")
     @Size(min = 3, max = 200, message = "Last Name should be in between 3 and 200 characters")
     @Pattern(regexp = "^([a-zA-Z]{3})((\\s?)[a-zA-z])*$")
-//    @Column(name = "lastName")
     private String customerLastName;
 
     @NotBlank
     @Email
     @Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-z0-9]+@([a-zA-Z])+\\.([a-zA-Z0-9])*([a-zA-Z]){2,}")
-//    @Column(name = "eMail" , unique = true)
     @Field(name = "email")
-//    @Indexed(unique = true)
     private String customerEmail;
 
 
